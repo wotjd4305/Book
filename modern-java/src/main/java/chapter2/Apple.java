@@ -2,7 +2,15 @@ package chapter2;
 
 public class Apple {
     double weight;
-    Color color;
+    Color color = Color.RED;
+
+    public Apple() {
+
+    }
+
+    public Apple(Integer integer) {
+        this.weight = integer;
+    }
 
     @Override
     public String toString() {
