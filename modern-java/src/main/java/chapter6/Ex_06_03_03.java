@@ -2,17 +2,10 @@ package chapter6;
 
 import chapter4.Dish;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.*;
 
 public class Ex_06_03_03 {
     static List<Dish> menu = Arrays.asList(
@@ -45,6 +38,28 @@ public class Ex_06_03_03 {
                                         maxBy(Comparator.comparingInt(Dish::getCalories)),
                                         Optional::get)));
         System.out.println(mostCaloricByType2);
+
+        //
+        Map<Dish.Type, Set<Dish.CaloricLevel>> totalCaloriesByType =
+                menu.stream()
+                        .collect(groupingBy(Dish::getType,mapping(dish -> {
+                            if (dish.getCalories() <= 400) return Dish.CaloricLevel.DIET;
+                            else if (dish.getCalories() <= 700) return Dish.CaloricLevel.NORMAL;
+                            else return Dish.CaloricLevel.FAT;}
+                                ,toSet()
+                        )));
+        System.out.println(totalCaloriesByType);
+
+//
+        Map<Dish.Type, Set<Dish.CaloricLevel>> totalCaloriesByType2 =
+                menu.stream()
+                        .collect(groupingBy(Dish::getType,mapping(dish -> {
+                                    if (dish.getCalories() <= 400) return Dish.CaloricLevel.DIET;
+                                    else if (dish.getCalories() <= 700) return Dish.CaloricLevel.NORMAL;
+                                    else return Dish.CaloricLevel.FAT;}
+                                ,toCollection(HashSet::new)
+                        )));
+        System.out.println(totalCaloriesByType2);
 
 
     }
