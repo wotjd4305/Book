@@ -1,9 +1,5 @@
 package chapter5;
 
-import chapter2.Apple;
-import chapter2.Color;
-import chapter2.Ex02_02_01;
-import chapter2.stategy.AppleHeavyWeightPredicate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
